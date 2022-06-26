@@ -4,6 +4,7 @@ import { Label } from "reactstrap";
 import { logoutUser } from "../redux/actions";
 
 const AppLogout = ({ logoutUser }) => {
+  // Logout effect
   useEffect(() => {
     logoutUser();
   });
