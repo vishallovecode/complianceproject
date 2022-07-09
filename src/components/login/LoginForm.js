@@ -19,7 +19,7 @@ const LoginForm = ({
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    loginUser({ userName: username, password: password });
+    loginUser({ email: username, password: password });
   };
 
   useEffect(() => {

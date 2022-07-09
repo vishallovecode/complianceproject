@@ -1,0 +1,94 @@
+.RC_Conatiner {
+    display: flex;
+    flex-direction: column;
+    padding: 12px;
+    position: relative;
+    width: 350px;
+    margin: 3em;
+    align-items: flex-start;
+    background: #FFFFFF;
+    box-shadow: 0px 0px 0px rgba(48, 49, 51, 0.04), 0px 4px 8px rgba(48, 49, 51, 0.08);
+    border-radius: 8px;
+    margin-top: 10px;
+    height: 250px;
+    .horizontal_line {
+        position: relative;
+        height: 2px;
+        left: 10px;
+        width: 90%;
+        top: 5%;
+        background: #E0E0E0;
+    }
+
+    .Upper_Section {
+        display: flex;
+        height: 72px px;
+        flex-direction: column;
+        background: beige;
+        width: 100%;
+
+        .title {
+            font-family: 'Inter';
+            font-style: normal;
+            font-weight: 400;
+            font-size: 16px;
+            line-height: 24px;
+            color: #323232;
+            padding-left: 15px;
+        }
+
+        .container {
+            font-size: 1em;
+            font-weight: 500;
+        }
+
+    }
+
+    .Lower_Section {
+        padding: 12px 0 0 0;
+        display: flex;
+        justify-content: space-between;
+
+        .earningCont {
+            .clockIcon {
+                background: #F5F5F5;
+                border-radius: 40px;
+                height: 50px;
+                width: 50px;
+                display: flex;
+
+                img {
+                    justify-content: center;
+                    margin: auto;
+                    height: 20px;
+                    width: 20px;
+                }
+            }
+
+            .content {
+                display: flex;
+                flex-direction: column;
+            }
+
+            .title {
+                font-family: 'Inter';
+                font-style: normal;
+                font-weight: 400;
+                font-size: 14px;
+                line-height: 24px;
+                color: #757575;
+            }
+
+            .description {
+                font-family: 'Inter';
+                font-style: normal;
+                font-weight: 400;
+                font-size: 14px;
+                line-height: 24px;
+                color: black;
+            }
+        }
+
+    }
+
+}

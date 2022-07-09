@@ -10,10 +10,12 @@ import {
   NavItem,
   NavLink
 } from "reactstrap";
+import isAuthenticated from "../Helpers/auth";
 
-const AppNavbar = ({ isAuthenticated }) => {
+const AppNavbar = (props) => {
   const [isOpen, setIsOpen] = useState(false);
   const toggleNav = () => setIsOpen(!isOpen);
+  console.log(isAuthenticated);
   // const { firstName, lastName } = user;
   return (
     <Navbar color="light" light expand="md">
@@ -44,7 +46,7 @@ const AppNavbar = ({ isAuthenticated }) => {
             </NavItem>
           )} */}
         </Nav>
-        {isAuthenticated && (
+        {isAuthenticated() && (
           <NavLink>
             <Link to="/logout">Logout</Link>
           </NavLink>
@@ -55,7 +57,7 @@ const AppNavbar = ({ isAuthenticated }) => {
 };
 
 const mapStateToProps = (state) => ({
-  isAuthenticated: state.user.isAuthenticated
+  isAuthenticated: state.user?.isAuthenticated
 });
 
 export default connect(mapStateToProps)(AppNavbar);

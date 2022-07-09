@@ -14,6 +14,11 @@ const RegisterForm = ({
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [userName, setUserName] = useState("");
+  const [founderName ,setFounderName] = useState("");
+  const [phone , setUserPhone] = useState("");
+  const [companyName , setCompanyName] = useState("");
+  const [CIN ,setCIN] = useState("");
+  const [GST , setGST] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -23,8 +28,12 @@ const RegisterForm = ({
       firstName: firstName,
       lastName: lastName,
       email: email,
-      userName: userName,
-      password: password
+      password: password,
+      companyName:companyName,
+      CIN: CIN,
+      GST: GST,
+      founderName: founderName,
+      phone: phone
     });
   };
 
@@ -71,14 +80,58 @@ const RegisterForm = ({
             />
           </FormGroup>
           <FormGroup>
-            <Label for="registerUserNmae">Username</Label>
+            <Label for="phone">Phone</Label>
             <Input
               tabIndex={4}
               type="text"
-              name="userName"
-              id="registerUserName"
-              value={userName}
-              onChange={(e) => setUserName(e.target.value)}
+              name="phone"
+              id="phone"
+              value={phone}
+              onChange={(e) => setUserPhone(e.target.value)}
+            />
+          </FormGroup>
+          <FormGroup>
+            <Label for="founderName">Founder Name</Label>
+            <Input
+              tabIndex={5}
+              type="text"
+              name="founderName"
+              id="founderName"
+              value={founderName}
+              onChange={(e) => setFounderName(e.target.value)}
+            />
+          </FormGroup>
+          <FormGroup>
+            <Label for="companyName">Company Name</Label>
+            <Input
+              tabIndex={6}
+              type="text"
+              name="companyName"
+              id="companyName"
+              value={companyName}
+              onChange={(e) => setCompanyName(e.target.value)}
+            />
+          </FormGroup>
+          <FormGroup>
+            <Label for="CIN">Company CIN</Label>
+            <Input
+              tabIndex={6}
+              type="text"
+              name="CIN"
+              id="CIN"
+              value={CIN}
+              onChange={(e) => setCIN(e.target.value)}
+            />
+          </FormGroup>
+          <FormGroup>
+            <Label for="GST">Company GST</Label>
+            <Input
+              tabIndex={6}
+              type="text"
+              name="GST"
+              id="GST"
+              value={GST}
+              onChange={(e) => setGST(e.target.value)}
             />
           </FormGroup>
           <FormGroup>

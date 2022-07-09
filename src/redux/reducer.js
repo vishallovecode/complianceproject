@@ -6,7 +6,10 @@ import {
   REGISTRATION_REQUESTED,
   REGISTRATION_SUCCESS,
   LOGOUT_USER,
-  CLEAR_MESSAGE
+  CLEAR_MESSAGE,
+  GET_COMPLIANCE,
+  GET_COMPLIANCE_FAILED,
+  GET_COMPLIANCE_SUCCESS
 } from "./actions";
 
 const initialState = {
@@ -16,18 +19,29 @@ const initialState = {
   success: false,
   status: ""
 };
+const initialCompliance = {
+  data: [],
+  loading: false,
+}
 
-const userReducer = (state = initialState, action) => {
+export const userReducer = (state = initialState, action) => {
   switch (action.type) {
     case CLEAR_MESSAGE:
       return { ...initialState, status: "", success: false, loading: false };
     case LOGOUT_USER:
-      localStorage.removeItem("AuthToken");
+      localStorage.removeItem("authToken");
+      window.location.pathname = '/login'
       return initialState;
     case LOGIN_REQUESTED:
       return { ...initialState, loading: true, status: "Authenticating..." };
     case LOGIN_SUCCESS:
-      const { user, accessToken } = action.payload;
+      const {  accessToken } = action.payload;
+      const user = {
+        role:action.payload,
+        email: action.payload.email,
+        phone: action.payload.phone,
+        company:action.payload.company
+      }
       localStorage.setItem("authToken", accessToken);
       return {
         ...state,
@@ -62,4 +76,33 @@ const userReducer = (state = initialState, action) => {
   }
 };
 
-export default userReducer;
+export const complianceReducer  = (state = initialCompliance, action) => {
+  switch (action.type) {
+    case GET_COMPLIANCE: {
+      return {
+        ...initialCompliance,
+        loading: true,
+      }
+    };
+    case GET_COMPLIANCE_FAILED:{
+      return {
+        ...initialCompliance,
+        loading: false
+      }
+    };
+    case GET_COMPLIANCE_SUCCESS: {
+   return   { 
+      ...initialCompliance,
+      loading:false, 
+      data: action?.payload 
+    }
+    }
+    default: {
+      return {
+        ...initialCompliance
+      }
+    }
+  }
+}
+
+

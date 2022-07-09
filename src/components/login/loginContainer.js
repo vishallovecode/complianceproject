@@ -4,7 +4,7 @@ import { loginUser, removeMessage } from "./../../redux/actions";
 
 const mapStateToProps = (state) => ({
   user: state.user.user,
-  isAuthenticated: state.user.isAuthenticated,
+  isAuthenticated: state?.user?.isAuthenticated,
   success: state.user.success,
   loading: state.user.loading,
   status: state.user.status
