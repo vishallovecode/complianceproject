@@ -1,7 +1,7 @@
 
 
 import { concatAST } from "graphql";
-import { BASE_URL, COMPLIANCE, USER_SIGNIN, USER_SIGNUP } from "../constants";
+import { BASE_URL, COMPLIANCE, USER, USER_SIGNIN, USER_SIGNUP } from "../constants";
 import AxiosInstance from "../middleware/axios";
 
 export const REGISTRATION_REQUESTED = "REGISTRATION_REQUESTED";
@@ -17,6 +17,16 @@ export const CLEAR_MESSAGE = "CLEAR_MESSAGE";
 export const GET_COMPLIANCE ="GET_COMPLIANCE";
 export const GET_COMPLIANCE_FAILED = "GET_COMPLIANCE_FAILED";
 export const GET_COMPLIANCE_SUCCESS = "GET_COMPLIANCE_SUCCESS";
+
+export const GET_USERS ="GET_USERS";
+export const GET_USERS_FAILED = "GET_USERS_FAILED";
+export const GET_USERS_SUCCESS = "GET_USERS_SUCCESS";
+
+export const ADD_USERS ="ADD_USERS";
+export const ADD_USERS_FAILED = "ADD_USERS_FAILED";
+export const ADD_USERS_SUCCESS = "ADD_USERS_SUCCESS";
+
+
 
 export const logoutUser = () => (dispatch) => {
   dispatch({
@@ -61,11 +71,11 @@ export const loginUser = (userData) => (dispatch) => {
   AxiosInstance
     .post(USER_SIGNIN, userData)
     .then((response) => {
-      console.log(response.data)
       dispatch({
         type: LOGIN_SUCCESS,
         payload: response.data
       });
+  
     })
     .catch((err) => {
       dispatch({
@@ -91,4 +101,39 @@ export const getCompliance = ()=>(dispatch)=> {
     })
  
   });
+}
+
+export const getUsers =()=>(dispatch)=> {
+dispatch({
+  type: GET_USERS
+})
+AxiosInstance.get(USER).then((response)=>{
+  dispatch({
+    type: GET_USERS_SUCCESS,
+    payload: response.data
+  })
+}).catch((error)=>{
+dispatch({
+  type:GET_USERS_FAILED,
+  payload: error?.response ? error?.response.data : error.message
+})
+})
+}
+
+export const createUser = (userData)=> (dispatch)=> {
+  dispatch({
+    type:ADD_USERS,
+    payload:null
+  })
+  AxiosInstance.post(USER , userData).then((response)=>{
+    dispatch({
+      type: ADD_USERS_SUCCESS,
+      payload: response.data
+    })
+  }).catch((error)=>{
+  dispatch({
+    type:ADD_USERS_FAILED,
+    payload: error.response ? error.response.data : error.message
+  })
+  })
 }

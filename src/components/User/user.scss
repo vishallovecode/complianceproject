@@ -1,0 +1,16 @@
+.user {
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: column;
+    .header {
+     display: flex;
+     padding: 10px;
+     .title {
+        flex-basis: 90%;
+     }
+     .button {
+        width: 150px;
+    
+     }
+    }
+}

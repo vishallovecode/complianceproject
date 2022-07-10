@@ -1,13 +1,14 @@
 
 import { applyMiddleware, combineReducers, createStore } from "redux";
 import thunk from "redux-thunk";
-import { complianceReducer, userReducer } from "./reducer";
+import { complianceReducer, getUserReducer, userReducer } from "./reducer";
 
 
 const store = createStore(
   combineReducers({
     user: userReducer,
-    compliance: complianceReducer || null
+    compliance: complianceReducer || null,
+    userList: getUserReducer
 
   }),
   {},

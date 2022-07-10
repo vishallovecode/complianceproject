@@ -1,12 +1,14 @@
 
 import { combineReducers } from "redux";
-import { complianceReducer, userReducer } from "./reducer";
+import { complianceReducer, getUserReducer, userReducer } from "./reducer";
 
 import store from "./store";
 
 export const reducer = combineReducers({
   user: userReducer,
-  compliance: complianceReducer
+  compliance: complianceReducer,
+  userList: getUserReducer
+
 });
 
 export { store };

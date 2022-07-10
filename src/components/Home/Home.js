@@ -7,8 +7,8 @@ import './homes.scss'
 const Home = (props) => {
     const { data, loading } = props.compliance;
     useEffect(() => {
-        props.getCompliance();
-    }, [])
+            props.getCompliance();
+    }, [props.user])
     return (
         <>
             {!loading ? <div className ="h-container">

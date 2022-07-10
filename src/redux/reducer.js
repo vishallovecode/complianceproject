@@ -9,7 +9,10 @@ import {
   CLEAR_MESSAGE,
   GET_COMPLIANCE,
   GET_COMPLIANCE_FAILED,
-  GET_COMPLIANCE_SUCCESS
+  GET_COMPLIANCE_SUCCESS,
+  GET_USERS,
+  GET_USERS_SUCCESS,
+  GET_USERS_FAILED
 } from "./actions";
 
 const initialState = {
@@ -22,6 +25,10 @@ const initialState = {
 const initialCompliance = {
   data: [],
   loading: false,
+}
+const initialUserstate = {
+  data: [],
+  loading: false
 }
 
 export const userReducer = (state = initialState, action) => {
@@ -102,6 +109,35 @@ export const complianceReducer  = (state = initialCompliance, action) => {
         ...initialCompliance
       }
     }
+  }
+}
+
+export const getUserReducer = (state= initialUserstate,action)=>{
+  switch(action.type) {
+    case GET_USERS: {
+      return {
+        ...initialUserstate,
+        loading:true
+      }
+    };
+    case GET_USERS_SUCCESS: {
+      return {
+        ...initialUserstate,
+        data:action.payload,
+        loading: false
+      }
+    };
+    case GET_USERS_FAILED:{
+      return {
+        ...initialUserstate,
+        loading: false
+      }
+    };
+    default: {
+      return {
+        ...initialCompliance
+      }
+    };
   }
 }
 
