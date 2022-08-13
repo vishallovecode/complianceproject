@@ -1,0 +1,22 @@
+
+.form-group {
+    width: 350px !important;
+    max-width: 350px !important;
+    }
+    .happy {
+        display: flex;
+        flex-direction: column;
+        span{
+            padding: 20px;
+            font-weight: bold;
+            font-size: 20p;
+        }
+    }
+
+    .dropdown {
+        select {
+            padding: 10px;
+            border: 1px solid #71b871;
+            border-radius: 30px;
+        }
+    }
