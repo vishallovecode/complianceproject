@@ -5,6 +5,7 @@ import AxiosInstance from '../../middleware/axios';
 import StatusMessage from "../../Helpers/StatusMessage";
 import './compliancedetails.scss'
 import { Avatar, Comment } from 'antd';
+import axios from 'axios';
 const ComplianceDetails = () => {
     const [completedBy, setCompletedBy] = useState("");
     const [completionDate, setCompletionDate] = useState('');
@@ -33,7 +34,7 @@ const ComplianceDetails = () => {
             success: true,
             status: "Pending"
         })
-        AxiosInstance.post(`${BASE_URL}compliance/update`, data).then((res) => {
+        AxiosInstance.post(`${BASE_URL}/compliance/update`, data).then((res) => {
             setStatus({
                 loading: false,
                 success: true,
@@ -58,7 +59,7 @@ const ComplianceDetails = () => {
             "upl",
             image
         );
-        AxiosInstance.post(`${BASE_URL}compliance/update/upload`, formData).then((res) => {
+        AxiosInstance.post(`${BASE_URL}/compliance/update/upload`, formData).then((res) => {
             setImageUrl(res?.data?.urls[0]?.url)
             setuploadLoading(false)
         }).catch((error)=>{
@@ -102,7 +103,6 @@ const ComplianceDetails = () => {
                                 type="file"
                                 id="image"
                                 name="image"
-                                // value={image}
                                 onChange={(e) => updateImage(e)}
                             />
                             <Button onClick={upload} disabled ={!image}>Upload</Button>

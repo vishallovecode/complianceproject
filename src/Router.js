@@ -2,6 +2,7 @@ import { Grid } from "@mui/material";
 import React from "react";
 import { Route, Switch } from "react-router-dom";
 import { Container, Jumbotron } from "reactstrap";
+import ComplianceDetails from "./components/ComplianceDetails";
 import Home from "./components/Home/Home";
 import LoginForm from "./components/login";
 import AppLogout from "./components/Logout";
@@ -26,10 +27,13 @@ const AppRouter = () => {
                 <ProtectedRoute component={Home} />
               </Route>
               <Route path="/user" exact>
-                <ManageUser/>
+              <ProtectedRoute component={ManageUser} /> 
               </Route>
               <Route path="/activity" exact>
-                <ViewActivity/>
+              <ProtectedRoute component={ViewActivity} /> 
+              </Route>
+              <Route path="/compliance/:id" exact>
+                <ProtectedRoute component={ComplianceDetails} /> 
               </Route>
               
               <Route path="/login">

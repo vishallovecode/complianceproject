@@ -97,7 +97,7 @@ export const getCompliance = ()=>(dispatch)=> {
   }).catch(error=>{
     dispatch({
       type: GET_COMPLIANCE_FAILED,
-      payload: err.response ? err.response.data : err.message
+      payload: error.response ? error.response.data : error.message
     })
  
   });

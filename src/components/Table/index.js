@@ -6,12 +6,12 @@ export default class CustomTable extends React.Component {
     console.log(this.props.loader)
     const {renderRows , renderColumns , loader} = this.props;
     return (
-      <Table striped>
+      <Table striped >
         <thead>
          {renderColumns()}
         </thead>
         {renderRows()}
-        {loader && <img src= '/loader.svg'/>}
+        {loader && <div  className='cover-spin'></div>}
       </Table>
     );
   }

@@ -9,9 +9,17 @@
     box-shadow: 0px 0px 0px rgba(48, 49, 51, 0.04), 0px 4px 8px rgba(48, 49, 51, 0.08);
     border-radius: 8px;
     margin: 10px 0 10px 10px;
-    height: 250px;
+    height: 210px;
+    cursor: pointer;
     &:hover {
         background: #999;
+    }
+    .iconCon {
+        display: flex;
+        justify-content: space-between;
+        .title{
+            padding: 5px;
+        }
     }
     .horizontal_line {
         position: relative;
@@ -21,13 +29,37 @@
         top: 5%;
         background: #E0E0E0;
     }
+    .OVERDUE {
+        background-color: red !important;
+        .container {
+            color: white !important;
+        }
+        .title {
+            color: white !important;
+        }
+    }
+
+    .COMPLETE {
+        background-color: lightgreen !important;
+    }
+
+    .PENDING {
+        background-color: rgb(143, 20, 20) !important;
+        .container {
+            color: white !important;
+        }
+        .title {
+            color: white !important;
+        }
+    }
 
     .Upper_Section {
         display: flex;
-        height: 72px px;
+        height: 72px;
         flex-direction: column;
         background: beige;
         width: 100%;
+        justify-content: center;
 
         .title {
             font-family: 'Inter';
@@ -37,23 +69,28 @@
             line-height: 15px;
             color: #323232;
             padding-left: 15px;
+            opacity: .8;
         }
 
         .container {
-            font-size: 1em;
+            font-size: 14px;
+            
             font-weight: 500;
         }
 
     }
 
     .Lower_Section {
-        padding: 12px 0 0 0;
+        padding: 10px 0 0 0;
         display: flex;
-        justify-content: space-between;
+        width: 100%;
+        justify-content: space-around;
 
-        .content {
+        .content1 {
             display: flex;
+            padding: 5px;
             flex-direction: column;
+            width: 200px;
         }
 
         .title {

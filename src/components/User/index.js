@@ -9,7 +9,9 @@ import CustomTable from '../Table';
 import './user.scss'
 import '../../Header/navbar.scss'
 import AxiosInstance from '../../middleware/axios';
-import { USER } from '../../constants';
+import { BASE_URL, USER } from '../../constants';
+import { Message } from '@mui/icons-material';
+import { message } from 'antd';
 
 const ManageUser = (props) => {
     const [open, setOpen] = useState(false);
@@ -31,8 +33,10 @@ const ManageUser = (props) => {
     ])
     const [editMode, setEditModeOn] = useState(false)
     useEffect(() => {
-        props.getUsers()
-    }, [])
+        if(props.compliance?.data?.length) {
+            props.getUsers()
+        }
+    }, [props.compliance])
     const onSelect = (data) => {
         setRoles(data)
     }
@@ -94,8 +98,16 @@ const ManageUser = (props) => {
             }
         }))
     }
-    const onDelete = () => {
-
+    const onDelete = (item) => {
+        setSubmitLoading(true);
+        AxiosInstance.delete(`${BASE_URL}${USER}${item.email}`).then(()=>{
+            message.info("User Deleted SuccesFully");
+            setSubmitLoading(false);
+            props.getUsers()
+        }).catch(()=> {
+            message.error("Failed to delete user");
+            setSubmitLoading(false);
+        })
     }
 
     const renderColumns = ()=> {

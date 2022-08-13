@@ -11,7 +11,7 @@ const AxiosInstance = axios.create({
 AxiosInstance.interceptors.response.use(response => response, error => {
   const { response, config } = error
 
-  if (response.status !== 401) {
+  if (response?.status !== 401) {
     return Promise.reject(error)
   }
 
