@@ -11,12 +11,14 @@ import {
   NavLink
 } from "reactstrap";
 import isAuthenticated from "../Helpers/auth";
+import { getCompliance } from "../redux/actions";
 
 const AppNavbar = (props) => {
   const [isOpen, setIsOpen] = useState(false);
   const toggleNav = () => setIsOpen(!isOpen);
-  console.log(isAuthenticated);
-  // const { firstName, lastName } = user;
+  useEffect(()=>{
+    props.getCompliance()
+  },[])
   return (
     <Navbar color="light" light expand="md">
       <NavbarBrand>
@@ -59,5 +61,10 @@ const AppNavbar = (props) => {
 const mapStateToProps = (state) => ({
   isAuthenticated: state.user?.isAuthenticated
 });
+const mapDispatchToProps = () => (dispatch) => ({
+  getCompliance: () => dispatch(getCompliance()),
+});
 
-export default connect(mapStateToProps)(AppNavbar);
+
+export default connect(mapStateToProps, mapDispatchToProps)(AppNavbar);
+

@@ -13,14 +13,14 @@ import { NavItem, NavLink, Nav } from "reactstrap";
 import classNames from "classnames";
 import { Link } from "react-router-dom";
 
-import SubMenu from "./SubMenu";
 import { connect } from "react-redux";
 import isAuthenticated from "../../Helpers/auth";
+import { Grid } from "@mui/material";
 
 const SideBar = ({ isOpen, toggle ,userAuthenticate }) => {
  
     return (
-        <>
+       <Grid className="fixed">
     {(userAuthenticate  || isAuthenticated()) ? <div className={classNames("sidebar", { "is-open": isOpen })}>
         <div className="sidebar-header">
             <span color="info" onClick={toggle} style={{ color: "#fff" }}>
@@ -53,36 +53,10 @@ const SideBar = ({ isOpen, toggle ,userAuthenticate }) => {
             </Nav>
         </div>
     </div>:  null}
-    </>
+    </Grid>
     )
 }
 
-const submenus = [
-    [
-        {
-            title: "Home 1",
-            target: "/",
-        },
-        {
-            title: "Home 2",
-            target: "Home-2",
-        },
-        {
-            itle: "Home 3",
-            target: "Home-3",
-        },
-    ],
-    [
-        {
-            title: "Page 1",
-            target: "Page-1",
-        },
-        {
-            title: "Page 2",
-            target: "Page-2",
-        },
-    ],
-];
 const mapStateToProps = (state) => ({
     user: state.user.user,
     userAuthenticate: state?.user?.isAuthenticated,

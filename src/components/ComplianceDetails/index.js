@@ -153,17 +153,6 @@ const ComplianceDetails = () => {
                     </FormGroup>
                 </div>
             </Form>
-            {/* <Comment
-                actions={[<span key="comment-nested-reply-to">Reply to</span>]}
-                author={<a>Han Solo</a>}
-                content={
-                    <p>
-                        We supply a series of design principles, practical patterns and high quality design
-                        resources (Sketch and Axure).
-                    </p>
-                }
-            >
-            </Comment> */}
              {uploadLoading && <div className="cover-spin"></div>  }
         </div>
 

@@ -117,7 +117,7 @@ export const getUserReducer = (state= initialUserstate,action)=>{
     case GET_USERS: {
       return {
         ...initialUserstate,
-        loading:true
+         loading:true
       }
     };
     case GET_USERS_SUCCESS: {

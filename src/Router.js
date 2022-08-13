@@ -1,3 +1,4 @@
+import { Grid } from "@mui/material";
 import React from "react";
 import { Route, Switch } from "react-router-dom";
 import { Container, Jumbotron } from "reactstrap";
@@ -8,25 +9,27 @@ import RegisterForm from "./components/register";
 import SideBar from "./components/SideBar";
 import CustomTable from "./components/Table";
 import ManageUser from "./components/User";
+import ViewActivity from "./components/ViewActivity";
 import AppNavbar from "./Header/NavBar";
 import ProtectedRoute from "./Helpers/ProtectedRoute";
 
 const AppRouter = () => {
   return (
-    <>
+    <Grid>
       <AppNavbar />
-      <div style={{ display: 'flex' }}>
+      <Grid style={{display:'flex'}}>
        { <SideBar />}
     
-       <Container className="d-flex flex flex-column align-items-center">
-        <Jumbotron className="d-flex flex flex-column col-sm-12 my-5 py-0 align-items-center">
+       <Grid style ={{width: "100%"}} >
             <Switch>
               <Route path="/" exact>
                 <ProtectedRoute component={Home} />
               </Route>
               <Route path="/user" exact>
-                {/* <ProtectedRoute component={Home} /> */}
                 <ManageUser/>
+              </Route>
+              <Route path="/activity" exact>
+                <ViewActivity/>
               </Route>
               
               <Route path="/login">
@@ -40,10 +43,9 @@ const AppRouter = () => {
               </Route>
               <Route path="*" component={() => "404 Not found"} />
             </Switch>
-            </Jumbotron>
-      </Container>
-      </div>
-    </>
+      </Grid>
+      </Grid>
+      </Grid>
   );
 };
 

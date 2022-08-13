@@ -7,6 +7,9 @@ import Multiselect from 'multiselect-react-dropdown';
 import { createUser, getUsers } from '../../redux/actions';
 import CustomTable from '../Table';
 import './user.scss'
+import '../../Header/navbar.scss'
+import AxiosInstance from '../../middleware/axios';
+import { USER } from '../../constants';
 
 const ManageUser = (props) => {
     const [open, setOpen] = useState(false);
@@ -16,12 +19,15 @@ const ManageUser = (props) => {
     const [phone, setPhone] = useState('');
     const [roles, setRoles] = useState([]);
     const [complinaces, setCompliances] = useState([])
-    const [openD, setOpenDropDown] = useState(false)
     const [selectedUser, setSelectedUser] = useState('');
+    const [sloading , setSubmitLoading] = useState(false)
     const [rolesList] = useState([
         { id: 1, name: 'REVIEWER' },
         { id: 2, name: 'EDITOR' },
         { id: 3, name: 'ADMIN' }
+    ])
+    const [statueList] = useState([
+        {id:1 , title: "Companies Act"} , {id:2 , title: "GST"}, {id:3 , title: "Income Tax"}
     ])
     const [editMode, setEditModeOn] = useState(false)
     useEffect(() => {
@@ -41,54 +47,100 @@ const ManageUser = (props) => {
     }
 
     const openModal = () => {
+        setFirstName('');
+        setRoles([])
+        setPhone()
+        setEmail('')
+        setLastName('')
         if (openModal) {
             setEditModeOn(false)
         }
         setOpen(!open)
     }
     const submit = () => {
-        props.createUser({
+        const payload = {
             firstName,
             lastName,
             email, phone,
             roles: roles.map((item) => item.name),
-            complinaces: complinaces?.map(c => c._id)
+            categories: complinaces?.map(c => c.title)
+        }
+        setSubmitLoading(true)
+        AxiosInstance.post(USER,payload ).then((res)=>{
+            setSubmitLoading(false)
+            setOpen(!open)
+            props.getUsers()
+        }).catch(()=>{
+            setSubmitLoading(false)
+            setOpen(!open)
+
+        }).finally(()=>{
+            setSubmitLoading(false)
+            setOpen(!open)
         })
     }
-    const data = props.compliance?.data?.length ? props.compliance : [
-        {
-            "firstName": "Shivam",
-            "lastName": "Rai",
-            "email": "shivam@yopmail.com",
-            "autoGenPass": "gyMtW7Is",
-            "phone": "48324843895",
-            "company": "62c5cfee5d0d20a4dec79106",
-            "roles": [
-                "REVIEWER",
-                "OWNER"
-            ],
-            "compliances": [
-                "62c5c7573c9f3bf57fb35a34",
-                "62c5c76f3c9f3bf57fb35a36"
-            ]
-        }
 
-    ]
     const onEdit = (data) => {
         setSelectedUser(data);
         setEditModeOn(true);
+        setFirstName(data.firstName)
+        setLastName(data.lastName)
+        setEmail(data.phone)
+        setPhone(data.email)
         setOpen(true);
+        setRoles(data.roles.map((item , index) =>{
+            return {
+                name: item, id: index
+            }
+        }))
     }
     const onDelete = () => {
 
     }
+
+    const renderColumns = ()=> {
+        return  (
+            <tr>
+            <th>Id</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Company Name</th>
+            <th>Role</th>
+            <th>Email</th>
+            <th>Actions</th>
+          </tr>
+        )
+    }
+    const renderRows = ()=> {
+        return (
+<>
+{ Array.isArray(props.userList?.data) && props.userList?.data?.map((item , index)=> {
+            return (
+              <tr>
+              <th scope="row">{index+1}</th>
+              <td>{item.firstName}</td>
+              <td>{item.lastName}</td>
+              <td>{item.company}</td>
+              <td>{item.roles?.join(',')}</td>
+              <td>{item.email}</td>
+              <td> <Button color="secondary" onClick = {()=>onEdit(item)} >Edit  <i class="fas fa-edit"></i></Button>{' '}
+                   <Button color="danger"  onClick = {()=>onDelete(item)}>Delete</Button>{' '}
+              </td>
+            </tr>
+            )
+           })
+           }
+    </>
+        )
+    }
+      
     return (
         <div className="user">
             <div className="header">
                 <h3 className='title'>Manage Users</h3>
                 <Button color="primary" className='button' onClick={openModal}>Add User</Button>
             </div>
-            <CustomTable data={data} onEdit={onEdit} onDelete={onDelete} />
+            <CustomTable renderRows = {renderRows} renderColumns= {renderColumns} loader = {props.userList?.loading}/>
             <Modal isOpen={open} toggle={openModal} className={props.className}>
                 <ModalHeader toggle={openModal}>{`${editMode ? 'Edit' : 'Add'} Users`}</ModalHeader>
                 <ModalBody>
@@ -142,11 +194,7 @@ const ManageUser = (props) => {
 
                             <Multiselect
                                 options={rolesList} // Options to display in the dropdown
-                                selectedValues={selectedUser?.roles?.map((item, index) => {
-                                    return {
-                                        name: item, id: index
-                                    }
-                                })} // Preselected value to persist in dropdown
+                                selectedValues={roles}// Preselected value to persist in dropdown
                                 onSelect={onSelect} // Function will trigger on select event
                                 onRemove={onRemove} // Function will trigger on remove event
                                 displayValue="name" // Property name to display in the dropdown options
@@ -157,11 +205,11 @@ const ManageUser = (props) => {
                             <Label for="loginUser">Select Compliance</Label>
 
                             <Multiselect
-                                options={props?.compliance?.data} // Options to display in the dropdown
+                                options={statueList} // Options to display in the dropdown
                                 selectedValues={complinaces}  // Preselected value to persist in dropdown
                                 onSelect={onSelectC} // Function will trigger on select event
                                 onRemove={onRemoveC} // Function will trigger on remove event
-                                displayValue="compliance" // Property name to display in the dropdown options
+                                displayValue="title" // Property name to display in the dropdown options
                                 showCheckbox={true}
                             />
                         </FormGroup>
@@ -172,6 +220,7 @@ const ManageUser = (props) => {
                     <Button color="secondary" onClick={openModal}>Cancel</Button>
                 </ModalFooter>
             </Modal>
+           { sloading &&  <div className='cover-spin'></div>}
         </div>
 
     )
